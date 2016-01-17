@@ -22,6 +22,15 @@ Line.prototype.getY = function (x){
     return ((-this.a) * x + this.c) / this.b;
 };
 
+
+/**
+ * returns X in function of Y
+ *
+ */
+Line.prototype.getX = function (y){
+    return ((-this.b) * y + this.c) / this.a;
+};
+
 Line.prototype.draw = function() {
     this.shape = new createjs.Shape();
     var g = this.shape.graphics;
