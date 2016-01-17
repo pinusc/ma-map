@@ -5,10 +5,8 @@ function Point(x, y){
 
 /**
  * describe a line of equation 
- * y = mx + q
+ * ax + by + c = 0
  * @constructor
- * @param {int} m - the angular coefficient 
- * @param {int} q
  */
 function Line(a, b, c) {
     this.a = a;
@@ -56,7 +54,6 @@ Line.prototype.draw = function() {
 /**
  * calculate equation of line passing between Points p1 and p2
  * using formula (y - p1.y)/(p2.y - p1.x) = (x - p1.x)/(p2.x - p1.x)
- *
  */
 function LineBetween(p1, p2){
     if (p1.x === p2.x) {  // line is // to y axis
