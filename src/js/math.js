@@ -10,9 +10,10 @@ function Point(x, y){
  * @param {int} m - the angular coefficient 
  * @param {int} q
  */
-function Line(m, q) {
-    this.m = m || 1;
-    this.q = q || 0;
+function Line(a, b, c) {
+    this.a = a;
+    this.b = b;
+    this.c = c;
 }
 
 /**
@@ -20,18 +21,27 @@ function Line(m, q) {
  *
  */
 Line.prototype.getY = function (x){
-    return x * this.m + this.q;
+    return ((-this.a) * x + this.c) / this.b;
 };
 
 Line.prototype.draw = function() {
     this.shape = new createjs.Shape();
     var g = this.shape.graphics;
-    var p1x = 0;
-    var p1y = this.getY(p1x);
+    if (this.b) {
+        p1x = 0;
+        p1y = this.getY(p1x);
 
-    var p2x = window.innerWidth - 10;
-    var p2y = this.getY(p2x);
-    console.log(p2y);
+        p2x = window.innerWidth - 10;
+        p2y = this.getY(p2x);
+    } else {
+        p1x = this.c;
+        p1y = 0;
+
+        p2x = this.c;
+        p2y = window.innerHeight;  // TODO: adapt to worlda larger that window
+    }
+
+
     console.log(window.innerHeight);
     g.beginStroke("black");
 
@@ -49,8 +59,12 @@ Line.prototype.draw = function() {
  *
  */
 function LineBetween(p1, p2){
+    if (p1.x === p2.x) {  // line is // to y axis
+        return new Line(1, 0, p1.x);
+    }
     var m = (p2.y - p1.y) / (p2.x - p1.x);
     var k = p1.y;
     var n = p1.x;
-    return new Line(m, k - n*m);
+    // return new Line(m, k - n*m);
+    return new Line(-m, 1, (k - n*m));
 }
