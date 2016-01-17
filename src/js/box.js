@@ -36,10 +36,11 @@ Box.prototype.redraw = function(){
     s.graphics.clear();  // we need to redraw everything
     s.x = p.x;
     s.y = p.y;
+    this.updateArrow();
     s.graphics.beginFill(p.color);
     s.graphics.beginStroke(p.stroke);
     s.graphics.drawRect(0, 0, p.width, p.height);
-    this.updateArrow();
+    stage.setChildIndex(s, stage.getNumChildren()-1);
     stage.update();
 };
 
@@ -72,7 +73,19 @@ Box.prototype.updateArrow = function() {
     var p2 = this.getCenter();
     var line = LineBetween(p2, p1);
 
-    line.draw();
+    var p3 = new Point();
+    p3.y = this.properties.y;
+    p3.x = line.getX(p3.y);
+
+    var p4 = new Point();
+    p4.y = this.parentBox.properties.y + this.parentBox.properties.height;
+    p4.x = line.getX(p4.y);
+    p4 = this.parentBox.getCenter();
+
+    var segment = new Segment(p3, p4);
+    segment.draw(this.arrow);
+    this.parentBox.redraw();
+    // line.draw();
 };
 
 Box.prototype.getCenter = function() {
