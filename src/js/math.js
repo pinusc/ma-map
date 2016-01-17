@@ -65,3 +65,23 @@ function LineBetween(p1, p2){
     // return new Line(m, k - n*m);
     return new Line(-m, 1, (k - n*m));
 }
+
+
+function Segment(p1, p2){
+    this.p1 = p1;
+    this.p2 = p2;
+}
+
+Segment.prototype.draw = function() {
+    this.shape = new createjs.Shape();
+    var g = this.shape.graphics;
+    g.beginStroke("black");
+
+    g.moveTo(this.p1.x, this.p1.y);
+    g.lineTo(this.p2.x, this.p2.y);
+    g.endStroke();
+
+    stage.addChild(this.shape);
+    stage.update();
+};
+
