@@ -11,8 +11,17 @@ function Box(parentBox, x, y, text){
     // new createjs.Shape(this.shape.graphics).graphics.beginFill("red").drawCircle(10, 10, 20);
     stage.addChild(this.shape);
     stage.update();
+
+    this.shape.addEventListener("click", handleClick);
+    that = this;
+    function handleClick(event){
+        that.addChild("asd asd");
+    }
 }
 
 Box.prototype.addChild = function(text){
-    this.children.push(new Box(this, this.shape.x, this.shape.y + 100, text));
+    child = new Box(this, this.shape.x, this.shape.y + 100, text);
+
+    this.children.push(child);
+};
 };
