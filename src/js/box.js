@@ -62,18 +62,16 @@ Box.prototype.addChild = function(text){
 
 Box.prototype.updateArrow = function() {
     if (! this.parentBox) return;  // first box doesn't have an arrow
+
     this.arrow = new createjs.Shape();
     var g = this.arrow.graphics;
-
     this.arrow.x = this.shape.x;
     this.arrow.y = this.shape.y;
-    var p1 = new Point(this.parentBox.shape.x, this.parentBox.shape.y);
-    console.log(p1);
 
-    var p2 = new Point(this.arrow.x, this.arrow.y);
-    console.log(p2);
+    var p1 = this.parentBox.getCenter();
+    var p2 = this.getCenter();
     var line = LineBetween(p2, p1);
-    console.log(line);
+
     line.draw();
 };
 
