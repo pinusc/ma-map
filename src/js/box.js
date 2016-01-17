@@ -27,10 +27,9 @@ function Box(parentBox, x, y, text){
     }
 }
 
-Box.prototype.update = function(){
+Box.prototype.redraw = function(){
     var p = this.properties;
     var s = this.shape;
-    console.log(p);
     s.graphics.clear();  // we need to redraw everything
     s.x = p.x;
     s.y = p.y;
@@ -38,6 +37,13 @@ Box.prototype.update = function(){
     s.graphics.beginStroke(p.stroke);
     s.graphics.drawRect(0, 0, p.width, p.height);
     stage.update();
+};
+
+Box.prototype.update = function() {
+    this.redraw();
+    for (var i = 0, len = this.children.length; i < len; i++) {
+        this.children.redraw();
+    }
 };
 
 Box.prototype.addChild = function(text){
