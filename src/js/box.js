@@ -27,6 +27,10 @@ function Box(parentBox, x, y, text){
     }
 }
 
+/**
+ * Redraw the Box only
+ *
+ */
 Box.prototype.redraw = function(){
     var p = this.properties;
     var s = this.shape;
@@ -39,6 +43,10 @@ Box.prototype.redraw = function(){
     stage.update();
 };
 
+/**
+ * Redraws the box and every child
+ *
+ */
 Box.prototype.update = function() {
     this.redraw();
     for (var i = 0, len = this.children.length; i < len; i++) {
