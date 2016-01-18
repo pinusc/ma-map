@@ -94,3 +94,54 @@ Segment.prototype.draw = function() {
     stage.update();
 };
 
+/**
+ * p1-----p2
+ *  |      |
+ *  |      |
+ * p3.----p4
+ *
+ */
+function Rectangle(p, width, height){
+    this.p1 = p;
+    this.p2 = new Point(p.x + width, p.y);
+    this.p3 = new Point(p.x + height, p.y);
+    this.p4 = new Point(p.x + width, p.y + height);
+}
+
+/**
+ * @return an integer i such as 1 <= i <= 4
+ * The integer represents a direction:
+ *           x
+ * +----------->
+ * |    3
+ * |  4 . 2
+ * |    1
+ *y|
+ * v
+ *
+ */
+Rectangle.prototype.getDirection = function (r){
+    var d = {};
+    for (var i = 0, len = 2; i < len; i++) {
+        var c = ["x", "y"][i];
+        d1 = this.p1[c] - r.p4[c];
+        d2 = this.p4[c] - r.p1[c];
+        // d1 = d1 > 0 ? d1 : 0;
+        // d2 = d2 > 0 ? d2 : 0;
+
+        d[c] = Math.abs(d1) < Math.abs(d2) ? d1 : d2;
+    }
+
+    console.log(d);
+    var result = Math.abs(d.x) > Math.abs(d.y) ? 2 : 1;
+    if (Math.abs(d.x) > Math.abs(d.y)){
+        if (d.x > 0){
+            result += 2;
+        }
+    } else {
+        if (d.y > 0){
+            result += 2;
+        }
+    }
+    return result;
+};
