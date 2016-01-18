@@ -120,7 +120,7 @@ Segment.prototype.draw = function() {
 function Rectangle(p, width, height){
     this.p1 = p;
     this.p2 = new Point(p.x + width, p.y);
-    this.p3 = new Point(p.x + height, p.y);
+    this.p3 = new Point(p.x + height, p.y + height);
     this.p4 = new Point(p.x + width, p.y + height);
 }
 
@@ -138,6 +138,7 @@ function Rectangle(p, width, height){
  */
 Rectangle.prototype.getDirection = function (r){
     var d = {};
+    console.log("Rectangles:", this, r);
     for (var i = 0, len = 2; i < len; i++) {
         var c = ["x", "y"][i];
         d1 = this.p1[c] - r.p4[c];
