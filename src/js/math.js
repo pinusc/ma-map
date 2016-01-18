@@ -3,6 +3,22 @@ function Point(x, y){
     this.y = y || 0;
 }
 
+Point.prototype.draw = function(shape) {
+    if (! shape) {
+        this.shape = new createjs.Shape();
+        shape = this.shape;
+    }
+    var g = shape.graphics;
+
+    console.log(window.innerHeight);
+    g.beginFill("black");
+
+    g.drawCircle(this.x, this.y, 5);
+
+    stage.addChild(this.shape);
+    stage.update();
+};
+
 /**
  * describe a line of equation 
  * ax + by + c = 0
