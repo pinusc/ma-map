@@ -69,22 +69,44 @@ Box.prototype.updateArrow = function() {
     this.arrow.x = this.shape.x;
     this.arrow.y = this.shape.y;
 
-    var p1 = this.parentBox.getCenter();
-    var p2 = this.getCenter();
-    var line = LineBetween(p2, p1);
+    var parent_prop = this.parentBox.properties;
+    var child_prop = this.properties;
 
-    var p3 = new Point();
-    p3.y = this.properties.y;
-    p3.x = line.getX(p3.y);
+    var parent_center = this.parentBox.getCenter();
+    var child_center = this.getCenter();
+    var line = LineBetween(parent_center, child_center);
 
-    var p4 = new Point();
-    p4.y = this.parentBox.properties.y + this.parentBox.properties.height;
-    p4.x = line.getX(p4.y);
-    p4 = this.parentBox.getCenter();
+    var parent_rect = new Rectangle(
+            new Point(parent_prop.x, parent_prop.y), 
+            parent_prop.width, 
+            parent_prop.height);
+    var child_rect = new Rectangle(
+            new Point(child_prop.x, child_prop.y), 
+            child_prop.width, 
+            child_prop.height);
 
-    var segment = new Segment(p3, p4);
+    var dir = parent_rect.getDirection(child_rect);
+    var axis1 = ['y', 'x'][1 - (dir % 2)];
+    var axis2 = ['y', 'x'][dir % 2];
+    console.log(dir, axis1, axis2);
+
+    var p1 = new Point();
+    p1[axis1] = this.properties[axis1];
+    // p1[axis2] = (axis2 === "x" ? line.getX : line.getY)(p1[axis1]);
+    p1[axis2] = line["get"+axis2.toUpperCase()](p1[axis1]);
+    p1.draw();
+    // p1[axis2] = line.getX(p1[axis1]);
+
+    // var p2 = new Point();
+    // p2.y = this.parentBox.properties.y + this.parentBox.properties.height;
+    // p2[axis2] = line.getX(p2[axis1]);
+    p2 = this.parentBox.getCenter();
+    console.log(p1, p2);
+
+    var segment = new Segment(p1, p2);
     segment.draw(this.arrow);
     this.parentBox.redraw();
+    p2.draw();
     // line.draw();
 };
 
