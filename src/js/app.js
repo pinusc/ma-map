@@ -3,6 +3,11 @@ var stage, world;
 function main() {
     // set canvas size to occupy all screen
     var canvas = document.getElementById('canvas');
+
+    canvas.oncontextmenu = function (e) {
+        e.preventDefault();
+    };
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
