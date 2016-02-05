@@ -3,12 +3,13 @@ function Point(x, y){
     this.y = y || 0;
 }
 
-Point.prototype.draw = function(shape) {
-    if (! shape) {
+Point.prototype.draw = function(graphics) {
+    if (graphics) {
         this.shape = new createjs.Shape();
-        shape = this.shape;
+    } else {
+        this.shape = new createjs.Shape(graphics);
     }
-    var g = shape.graphics;
+    var g = this.shape.graphics;
 
     console.log(window.innerHeight);
     g.beginFill("black");
@@ -97,8 +98,12 @@ function Segment(p1, p2){
     this.p2 = p2;
 }
 
-Segment.prototype.draw = function() {
-    this.shape = new createjs.Shape();
+Segment.prototype.draw = function(graphics) {
+    if (graphics) {
+        this.shape = new createjs.Shape();
+    } else {
+        this.shape = new createjs.Shape(graphics);
+    }
     var g = this.shape.graphics;
     g.beginStroke("black");
 
