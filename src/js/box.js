@@ -19,12 +19,16 @@ function Box(parentBox, x, y, text){
     stage.addChild(this.shape);
     stage.update();
 
+    this.initializeInput();
+}
+
+Box.prototype.initializeInput = function(){
     this.shape.addEventListener("click", handleClick);
     that = this;
     function handleClick(event){
         that.addChild("asd asd");
     }
-}
+};
 
 /**
  * Redraw the Box only
