@@ -128,6 +128,10 @@ Rectangle.prototype.getWidth = function(){
     return this.p2 - this.p1;
 };
 
+Rectangle.prototype.getHeight = function(){
+    return this.p3 - this.p1;
+};
+
 /**
  * @return an integer i such as 1 <= i <= 4
  * The integer represents a direction:
