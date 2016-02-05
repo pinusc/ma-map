@@ -124,6 +124,10 @@ function Rectangle(p, width, height){
     this.p4 = new Point(p.x + width, p.y + height);
 }
 
+Rectangle.prototype.getWidth = function(){
+    return this.p2 - this.p1;
+};
+
 /**
  * @return an integer i such as 1 <= i <= 4
  * The integer represents a direction:
