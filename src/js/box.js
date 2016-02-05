@@ -56,7 +56,7 @@ Box.prototype.update = function() {
 };
 
 Box.prototype.addChild = function(text){
-    child = new Box(this, this.shape.x - 150, this.shape.y + 100, text);
+    child = new Box(this, this.shape.x, this.shape.y -300, text);
 
     this.children.push(child);
 };
@@ -84,22 +84,24 @@ Box.prototype.updateArrow = function() {
             new Point(child_prop.x, child_prop.y), 
             child_prop.width, 
             child_prop.height);
+    var dir = child_rect.getDirection(parent_rect);
 
-    var dir = parent_rect.getDirection(child_rect);
-    var axis1 = ['y', 'x'][1 - (dir % 2)];
-    var axis2 = ['y', 'x'][dir % 2];
-    console.log(dir, axis1, axis2);
-
-    var p1 = new Point();
-    p1[axis1] = this.properties[axis1];
-    // p1[axis2] = (axis2 === "x" ? line.getX : line.getY)(p1[axis1]);
-    p1[axis2] = line["get"+axis2.toUpperCase()](p1[axis1]);
+    var p1 = new Point(0, 0);
+    switch (dir) {
+        case 1:
+            p1.y = this.properties.height;  // jshint ignore:line
+        case 3:
+            p1.y += this.properties.y;
+            p1.x = line.getX(p1.y);
+            break;
+        case 2:
+            p1.x = this.properties.width;  // jshint ignore:line
+        case 4:
+            p1.x += this.properties.x; 
+            p1.y = line.getY(p1.x);
+            break;
+    }
     p1.draw();
-    // p1[axis2] = line.getX(p1[axis1]);
-
-    // var p2 = new Point();
-    // p2.y = this.parentBox.properties.y + this.parentBox.properties.height;
-    // p2[axis2] = line.getX(p2[axis1]);
     p2 = this.parentBox.getCenter();
     console.log(p1, p2);
 
@@ -107,7 +109,6 @@ Box.prototype.updateArrow = function() {
     segment.draw(this.arrow);
     this.parentBox.redraw();
     p2.draw();
-    // line.draw();
 };
 
 Box.prototype.getCenter = function() {
