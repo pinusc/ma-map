@@ -29,12 +29,26 @@ Box.prototype.initializeInput = function(){
         that.update();
     };
 
+    var offset = new createjs.Point();
+	function startDrag(evt) {
+		offset.x = stage.mouseX - that.properties.x ;
+		offset.y = stage.mouseY - that.properties.y ;
+	}
+	function doDrag(evt) {
+		// that.properties.x = evt.stageX - offset.x;
+		// that.properties.y = evt.stageY - offset.y;
+        that.properties.x = evt.stageX - offset.x;
+        that.properties.y = evt.stageY - offset.y;
+        that.update();
+	}
+
     var dclick = function (evt) {
         // console.log(evt.target);
         that.addChild("foo");
     };
     // this.shape.addEventListener("click", handleClick);
-    this.shape.on("pressmove", pressmove);
+    this.shape.on("mousedown", startDrag);
+    this.shape.on("pressmove", doDrag);
     this.shape.on("dblclick", dclick);
 };
 
