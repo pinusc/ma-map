@@ -14,28 +14,28 @@ function Box(parentBox, x, y, text){
     };
     this.shape = new createjs.Shape();
 
-    this.redraw();
     // new createjs.Shape(this.shape.graphics).graphics.beginFill("red").drawCircle(10, 10, 20);
+    this.initializeInput();
     stage.addChild(this.shape);
     stage.update();
-
-    this.initializeInput();
+    this.redraw();
 }
 
 Box.prototype.initializeInput = function(){
-    that = this;
-    function pressmove(evt) {
+    var that = this;
+    var pressmove = function (evt) {
         that.properties.x = evt.stageX;
         that.properties.y = evt.stageY;
-        that.redraw();
-    }
+        that.update();
+    };
 
-    function dclick(evt) {
+    var dclick = function (evt) {
+        // console.log(evt.target);
         that.addChild("foo");
-    }
+    };
     // this.shape.addEventListener("click", handleClick);
-    this.shape.addEventListener("pressmove", pressmove);
-    this.shape.addEventListener("dblclick", dclick);
+    this.shape.on("pressmove", pressmove);
+    this.shape.on("dblclick", dclick);
 };
 
 /**
