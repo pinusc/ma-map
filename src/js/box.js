@@ -52,7 +52,7 @@ Box.prototype.redraw = function(){
     s.graphics.beginFill(p.color);
     s.graphics.beginStroke(p.stroke);
     s.graphics.drawRect(0, 0, p.width, p.height);
-    stage.setChildIndex(s, stage.getNumChildren()-1);
+    // stage.setChildIndex(s, stage.getNumChildren()-1);
     stage.update();
 };
 
@@ -63,7 +63,7 @@ Box.prototype.redraw = function(){
 Box.prototype.update = function() {
     this.redraw();
     for (var i = 0, len = this.children.length; i < len; i++) {
-        this.children.redraw();
+        this.children[i].redraw();
     }
 };
 
