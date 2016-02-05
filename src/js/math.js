@@ -125,12 +125,13 @@ function Rectangle(p, width, height){
 }
 
 Rectangle.prototype.getWidth = function(){
-    return this.p2 - this.p1;
+    return this.p2.x - this.p1.x;
 };
 
 Rectangle.prototype.getHeight = function(){
-    return this.p3 - this.p1;
+    return this.p3.y - this.p1.y;
 };
+
 
 /**
  * @return an integer i such as 1 <= i <= 4
