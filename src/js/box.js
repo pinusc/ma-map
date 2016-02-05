@@ -124,7 +124,6 @@ Box.prototype.updateArrow = function() {
 
     p1.draw(this.arrow.graphics);
     var p2 = this.parentBox.getCenter();
-    console.log(p1, p2);
 
     this.arrow.segment = new Segment(p1, p2);
     this.arrow.segment.draw(this.arrow.graphics);

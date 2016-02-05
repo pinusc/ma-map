@@ -11,7 +11,6 @@ Point.prototype.draw = function(graphics) {
     }
     var g = this.shape.graphics;
 
-    console.log(window.innerHeight);
     g.beginFill("black");
 
     g.drawCircle(this.x, this.y, 5);
