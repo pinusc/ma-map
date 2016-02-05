@@ -150,49 +150,25 @@ Rectangle.prototype.getDirection = function (r){
     // console.log("Rectangles:", this, r);
     var rcenter = new Point((r.p1.x + r.p4.x) / 2, (r.p1.y + r.p4.y) / 2); 
     var tcenter = new Point((this.p1.x + this.p4.x) / 2, (this.p1.y + this.p4.y) / 2); 
-    for (var i = 0, len = 2; i < len; i++) {
-        var c = ["x", "y"][i];
-        d1 = tcenter[c] - rcenter[c];
-        d[c] = d1;
-    }
+    // TODO: create Rectangle.getCenter()
+    
+    // t_slope is the slope of the rectangle siagonal
+    var t_slope = this.getHeight() / this.getWidth();
+    // c_slope is the slope of the line connecting the centers of rectangles
+    var c_slope = Math.abs(rcenter.y - tcenter.y) / 
+         Math.abs(rcenter.x - tcenter.x);
 
-    console.log(d);
-    var result = Math.abs(d.x) > Math.abs(d.y) ? 2 : 1;
-    if (Math.abs(d.x) < Math.abs(d.y)){
-        if (d.x > 0){
-            result += 2;
-        }
-    } else {
-        if (d.y > 0){
-            result += 2;
-        }
+    var dir;
+    if (c_slope < t_slope) {  // horizontal
+       dir = 2;
+       if (tcenter.x > rcenter.x) {
+           dir += 2;
+       }
+    } else {  // vertical
+       dir = 1;
+       if (tcenter.y > rcenter.y) {
+           dir += 2;
+       }
     }
-    return result;
-    /*
-    var d = {};
-    // console.log("Rectangles:", this, r);
-    for (var i = 0, len = 2; i < len; i++) {
-        var c = ["x", "y"][i];
-        d1 = this.p1[c] - r.p1[c];
-        d2 = this.p4[c] - r.p4[c];
-        console.log("c: ", c, ", d1: ", d1, ", d2: ", d2);
-        // d1 = d1 > 0 ? d1 : 0;
-        // d2 = d2 > 0 ? d2 : 0;
-
-        d[c] = Math.abs(d1) < Math.abs(d2) ? d1 : d2;
-    }
-
-    console.log(d);
-    var result = Math.abs(d.x) > Math.abs(d.y) ? 2 : 1;
-    if (Math.abs(d.x) > Math.abs(d.y)){
-        if (d.x > 0){
-            result += 2;
-        }
-    } else {
-        if (d.y > 0){
-            result += 2;
-        }
-    }
-    return result;
-    */
+    return dir;
 };
