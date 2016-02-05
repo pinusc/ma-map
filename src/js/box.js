@@ -35,7 +35,7 @@ Box.prototype.initializeInput = function(){
     }
     // this.shape.addEventListener("click", handleClick);
     this.shape.addEventListener("pressmove", pressmove);
-    this.shape.addEventListener("click", dclick);
+    this.shape.addEventListener("dblclick", dclick);
 };
 
 /**
