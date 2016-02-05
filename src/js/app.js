@@ -28,6 +28,7 @@ function main() {
 
     var offset = new createjs.Point();
 	function startDrag(evt) {
+        if (evt.nativeEvent.button !== 1) return;
         // console.log(evt);
 		offset.x = stage.mouseX - world.x;
 		offset.y = stage.mouseY - world.y;
@@ -36,6 +37,7 @@ function main() {
         stage.update();
 	}
 	function doDrag(evt) {
+        if (evt.nativeEvent.button !== 1) return;
 		world.x = evt.stageX - offset.x;
 		world.y = evt.stageY - offset.y;
 	}
