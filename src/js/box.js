@@ -23,11 +23,19 @@ function Box(parentBox, x, y, text){
 }
 
 Box.prototype.initializeInput = function(){
-    this.shape.addEventListener("click", handleClick);
     that = this;
-    function handleClick(event){
-        that.addChild("asd asd");
+    function pressmove(evt) {
+        that.properties.x = evt.stageX;
+        that.properties.y = evt.stageY;
+        that.redraw();
     }
+
+    function dclick(evt) {
+        that.addChild("foo");
+    }
+    // this.shape.addEventListener("click", handleClick);
+    this.shape.addEventListener("pressmove", pressmove);
+    this.shape.addEventListener("click", dclick);
 };
 
 /**
