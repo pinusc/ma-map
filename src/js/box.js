@@ -16,7 +16,7 @@ function Box(parentBox, x, y, text){
 
     // new createjs.Shape(this.shape.graphics).graphics.beginFill("red").drawCircle(10, 10, 20);
     this.initializeInput();
-    stage.addChild(this.shape);
+    world.addChild(this.shape);
     stage.update();
     this.redraw();
 }
@@ -78,9 +78,9 @@ Box.prototype.updateArrow = function() {
 
     if (this.arrow){
         this.arrow.graphics.clear();
-        stage.removeChild(this.arrow.segment.shape);
-        stage.removeChild(this.arrow.p1.shape);
-        stage.removeChild(this.arrow.p2.shape);
+        world.removeChild(this.arrow.segment.shape);
+        world.removeChild(this.arrow.p1.shape);
+        world.removeChild(this.arrow.p2.shape);
 
     } else {
         this.arrow = new createjs.Shape();

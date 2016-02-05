@@ -15,7 +15,7 @@ Point.prototype.draw = function(graphics) {
 
     g.drawCircle(this.x, this.y, 5);
 
-    stage.addChild(this.shape);
+    world.addChild(this.shape);
     stage.update();
 };
 
@@ -72,7 +72,7 @@ Line.prototype.draw = function() {
     g.lineTo(p2x, p2y);
     g.endStroke();
 
-    stage.addChild(this.shape);
+    world.addChild(this.shape);
     stage.update();
 };
 
@@ -110,7 +110,7 @@ Segment.prototype.draw = function(graphics) {
     g.lineTo(this.p2.x, this.p2.y);
     g.endStroke();
 
-    stage.addChild(this.shape);
+    world.addChild(this.shape);
     stage.update();
 };
 
