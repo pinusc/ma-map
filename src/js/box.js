@@ -76,7 +76,15 @@ Box.prototype.addChild = function(text){
 Box.prototype.updateArrow = function() {
     if (! this.parentBox) return;  // first box doesn't have an arrow
 
-    this.arrow = new createjs.Shape();
+    if (this.arrow){
+        this.arrow.graphics.clear();
+        stage.removeChild(this.arrow.segment.shape);
+        stage.removeChild(this.arrow.p1.shape);
+        stage.removeChild(this.arrow.p2.shape);
+
+    } else {
+        this.arrow = new createjs.Shape();
+    }
     var g = this.arrow.graphics;
     this.arrow.x = this.shape.x;
     this.arrow.y = this.shape.y;
@@ -98,7 +106,7 @@ Box.prototype.updateArrow = function() {
             child_prop.height);
     var dir = child_rect.getDirection(parent_rect);
 
-    var p1 = new Point(0, 0);
+    p1 = new Point();
     switch (dir) {
         case 1:
             p1.y = this.properties.height;  // jshint ignore:line
@@ -113,14 +121,18 @@ Box.prototype.updateArrow = function() {
             p1.y = line.getY(p1.x);
             break;
     }
-    p1.draw();
-    p2 = this.parentBox.getCenter();
+
+    p1.draw(this.arrow.graphics);
+    var p2 = this.parentBox.getCenter();
     console.log(p1, p2);
 
-    var segment = new Segment(p1, p2);
-    segment.draw(this.arrow);
-    this.parentBox.redraw();
-    p2.draw();
+    this.arrow.segment = new Segment(p1, p2);
+    this.arrow.segment.draw(this.arrow.graphics);
+    // this.parentBox.redraw();
+    p2.draw(this.arrow.graphics);
+
+    this.arrow.p1 = p1;
+    this.arrow.p2 = p2;
 };
 
 Box.prototype.getCenter = function() {
