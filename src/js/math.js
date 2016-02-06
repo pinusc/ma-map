@@ -120,6 +120,9 @@ Segment.prototype.draw = function(graphics) {
  *  |      |
  * p3.----p4
  *
+ * if center === true, the coordinates are not calculated from p1
+ * but with respect to the center of the rectangle
+ *
  */
 function Rectangle(p, width, height, center){
     this.p1 = p;
