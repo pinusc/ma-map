@@ -12,7 +12,6 @@ function main() {
     canvas.height = window.innerHeight;
 
     stage = new createjs.Stage("canvas");
-    
 
     createjs.Ticker.addEventListener("tick", tick);
 
@@ -29,7 +28,7 @@ function main() {
     world = new createjs.Container();
     stage.addChild(world);
 
-    circle = new Box(null, stage.canvas.width / 2, stage.canvas.height/ 2);
+    circle = new Box(null, {rect: new Rectangle(new Point(stage.canvas.width / 2, stage.canvas.height / 2), 100, 50)});
 
     var offset = new createjs.Point();
 	function startDrag(evt) {
@@ -46,6 +45,16 @@ function main() {
 		world.x = evt.stageX - offset.x;
 		world.y = evt.stageY - offset.y;
 	}
+
+    createUI();
+}
+
+
+function createUI() {
+    var text = new createjs.Text("Mappa Maker", "50px Serif");
+    text.x = stage.canvas.width / 2 - text.getMeasuredWidth() / 2;
+    // text.textBaseline = "alphabetic";
+    stage.addChild(text);
 }
 
 window.onload = main;

@@ -1,6 +1,14 @@
-function Box(parentBox, x, y, text){
+function Box(parentBox, obj, text){
     this.children = [];
     this.parentBox = parentBox;
+    var x = 0, y = 0, width = 150, height = 100;
+
+    if (obj.rect){
+        x = obj.rect.p1.x;
+        y = obj.rect.p1.y;
+        width = obj.rect.getWidth();
+        height = obj.rect.getHeight();
+    }
 
     this.properties = {
         "color": "red",
@@ -8,8 +16,8 @@ function Box(parentBox, x, y, text){
         "text": text || "Lorem Ipsum",
         "x": x || 0,
         "y": y || 0,
-        "height": 50,
-        "width": 100,
+        "height": height,
+        "width": width,
         "arrow": null
     };
     this.shape = new createjs.Shape();
@@ -82,9 +90,31 @@ Box.prototype.update = function() {
     }
 };
 
-Box.prototype.addChild = function(text){
-    child = new Box(this, this.shape.x, this.shape.y -300, text);
-
+/** Draws like this:
+ * the distance is the distance between the radius
+ *
+ *      +---------+
+ *      !parent   |
+ *    -------+    |
+ *   angle  /     |
+ *      +--/------+
+ *        /
+ *+------o--+
+ *!child/   |
+ *!    +    |
+ *!         |
+ *+---------+
+ *
+ *
+ */
+Box.prototype.addChild = function(text, angle, distance){
+    var t_rect = new Rectangle(new Point(this.properties.x, this.properties.y),
+            this.properties.width,
+            this.properties.height);
+    var c_rect = new Rectangle(new Point(this.properties.x + 100, this.properties.y + 150),
+            this.properties.width + 40,
+            this.properties.height);
+    child = new Box(this, {rect: c_rect}, text);
     this.children.push(child);
 };
 
