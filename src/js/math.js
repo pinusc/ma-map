@@ -121,8 +121,11 @@ Segment.prototype.draw = function(graphics) {
  * p3.----p4
  *
  */
-function Rectangle(p, width, height){
+function Rectangle(p, width, height, center){
     this.p1 = p;
+    if (center) {
+        this.p1 = new Point(p - width / 2, p - height / 2);
+    }
     this.p2 = new Point(p.x + width, p.y);
     this.p3 = new Point(p.x + height, p.y + height);
     this.p4 = new Point(p.x + width, p.y + height);

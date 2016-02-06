@@ -113,7 +113,7 @@ Box.prototype.addChild = function(text, angle, distance){
             this.properties.height);
     var c_rect = new Rectangle(new Point(this.properties.x + 100, this.properties.y + 150),
             this.properties.width + 40,
-            this.properties.height);
+            this.properties.height, true);
     child = new Box(this, {rect: c_rect}, text);
     this.children.push(child);
 };
