@@ -63,10 +63,11 @@ Box.prototype.redraw = function(){
     s.x = p.x;
     s.y = p.y;
     this.updateArrow();
+    world.setChildIndex(s, stage.getNumChildren()-1);
+    world.setChildIndex(s, 0);
     s.graphics.beginFill(p.color);
     s.graphics.beginStroke(p.stroke);
     s.graphics.drawRect(0, 0, p.width, p.height);
-    // stage.setChildIndex(s, stage.getNumChildren()-1);
     stage.update();
 };
 
@@ -120,7 +121,7 @@ Box.prototype.updateArrow = function() {
             child_prop.height);
     var dir = child_rect.getDirection(parent_rect);
 
-    p1 = new Point();
+    var p1 = new Point();
     switch (dir) {
         case 1:
             p1.y = this.properties.height;  // jshint ignore:line
@@ -141,7 +142,7 @@ Box.prototype.updateArrow = function() {
 
     this.arrow.segment = new Segment(p1, p2);
     this.arrow.segment.draw(this.arrow.graphics);
-    // this.parentBox.redraw();
+    this.parentBox.redraw();
     p2.draw(this.arrow.graphics);
 
     this.arrow.p1 = p1;
