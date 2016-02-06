@@ -63,8 +63,8 @@ Box.prototype.redraw = function(){
     s.x = p.x;
     s.y = p.y;
     this.updateArrow();
-    world.setChildIndex(s, stage.getNumChildren()-1);
-    world.setChildIndex(s, 0);
+    world.setChildIndex(s, world.getNumChildren()-1);
+    // world.setChildIndex(s, 0);
     s.graphics.beginFill(p.color);
     s.graphics.beginStroke(p.stroke);
     s.graphics.drawRect(0, 0, p.width, p.height);
