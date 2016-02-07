@@ -125,10 +125,10 @@ Segment.prototype.draw = function(graphics) {
  *
  */
 function Rectangle(p, width, height, center){
-    this.p1 = p;
     if (center) {
-        this.p1 = new Point(p - width / 2, p - height / 2);
+        p = new Point(p.x - width / 2, p.y - height / 2);
     }
+    this.p1 = p;
     this.p2 = new Point(p.x + width, p.y);
     this.p3 = new Point(p.x + height, p.y + height);
     this.p4 = new Point(p.x + width, p.y + height);
@@ -141,6 +141,11 @@ Rectangle.prototype.getWidth = function(){
 Rectangle.prototype.getHeight = function(){
     return this.p3.y - this.p1.y;
 };
+
+Rectangle.prototype.getCenter = function(){
+    return new Point((this.p1.x + this.p4.x)/2, (this.p1.y + this.p4.y)/2);
+};
+
 
 
 /**
