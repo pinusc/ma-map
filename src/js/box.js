@@ -64,14 +64,23 @@ Box.prototype.initializeInput = function(){
  * Redraw the Box only
  *
  */
-Box.prototype.redraw = function(){
+Box.prototype.redraw = function(arg){
+    if (arg && arg.properties) {
+        _.extend(this.properties, arg.properties);
+    }
+    if (arg && arg.rect) {
+        this.properties.x = arg.rect.p1.x;
+        this.properties.y = arg.rect.p2.y;
+        this.properties.width = arg.rect.getWidth();
+        this.properties.height = arg.rect.getHeight();
+    }
     var p = this.properties;
     var s = this.shape;
     s.graphics.clear();  // we need to redraw everything
     s.x = p.x;
     s.y = p.y;
     this.updateArrow();
-    world.setChildIndex(s, world.getNumChildren()-1);
+    // world.setChildIndex(s, world.getNumChildren()-1);
     // world.setChildIndex(s, 0);
     s.graphics.beginFill(p.color);
     s.graphics.beginStroke(p.stroke);
@@ -83,8 +92,8 @@ Box.prototype.redraw = function(){
  * Redraws the box and every child
  *
  */
-Box.prototype.update = function() {
-    this.redraw();
+Box.prototype.update = function(arg) {
+    this.redraw(arg);
     for (var i = 0, len = this.children.length; i < len; i++) {
         this.children[i].redraw();
     }
@@ -108,16 +117,35 @@ Box.prototype.update = function() {
  *
  */
 Box.prototype.addChild = function(text, angle, distance){
+    angle = angle || 90;
+    distance = distance || 100;
     var t_rect = new Rectangle(new Point(this.properties.x, this.properties.y),
             this.properties.width,
             this.properties.height);
-    p2 = t_rect.getCenter().findPointOnCircle(200, 270);
-    var c_rect = new Rectangle(p2,
-            this.properties.width + 50,
-            this.properties.height, true);
+    p2 = t_rect.getCenter().findPointOnCircle(distance, angle);
+    var c_rect = new Rectangle(p2, this.properties.width, this.properties.height, true);
     child = new Box(this, {rect: c_rect}, text);
-    p2.draw();
     this.children.push(child);
+    this.balanceChildren();
+};
+
+Box.prototype.balanceChildren = function() {
+    var phi = 1.61803398874989;
+    var angle = 90 / (phi + 1);
+    angle = 0;
+    var pitch = (180 - 2 * angle) / (this.children.length + 1);
+
+    var t_rect = new Rectangle(new Point(this.properties.x, this.properties.y),
+            this.properties.width,
+            this.properties.height);
+    var t_center = t_rect.getCenter();
+
+    var distance = 300;
+    for (var i = 0; i < this.children.length; i++){
+        var p2 = t_center.findPointOnCircle(distance, angle + (i + 1) * pitch);
+        var c_rect = new Rectangle(p2, this.properties.width, this.properties.height, true);
+        this.children[i].update({rect: c_rect});
+    }
 };
 
 Box.prototype.updateArrow = function() {
