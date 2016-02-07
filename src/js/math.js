@@ -19,6 +19,24 @@ Point.prototype.draw = function(graphics) {
     stage.update();
 };
 
+/**    this
+ * _______.
+ *     \  \ radius = 3
+ *      x--\
+ *  angle   \
+ *           .
+ *
+ *
+ */
+Point.prototype.findPointOnCircle = function(radius, angle) {
+    var p2 = new Point();
+    // angle = 180 - angle;
+    angle = Math.PI * angle / 180; // convert to radians
+    p2.x = this.x - Math.cos(angle) * radius;
+    p2.y = this.y + Math.sin(angle) * radius;
+    return p2;
+};
+
 /**
  * describe a line of equation 
  * ax + by + c = 0

@@ -111,10 +111,12 @@ Box.prototype.addChild = function(text, angle, distance){
     var t_rect = new Rectangle(new Point(this.properties.x, this.properties.y),
             this.properties.width,
             this.properties.height);
-    var c_rect = new Rectangle(new Point(this.properties.x + 100, this.properties.y + 150),
-            this.properties.width + 40,
+    p2 = t_rect.getCenter().findPointOnCircle(200, 270);
+    var c_rect = new Rectangle(p2,
+            this.properties.width + 50,
             this.properties.height, true);
     child = new Box(this, {rect: c_rect}, text);
+    p2.draw();
     this.children.push(child);
 };
 
