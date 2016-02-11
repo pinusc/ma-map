@@ -85,34 +85,7 @@ Box.prototype.initializeInput = function(){
  *
  */
 Box.prototype.redraw = function(arg){
-    if (arg && arg.properties) {
-        _.extend(this.properties, arg.properties);
-    }
-    if (arg && arg.rect) {
-        this.properties.x = arg.rect.p1.x;
-        this.properties.y = arg.rect.p2.y;
-        this.properties.width = arg.rect.getWidth();
-        this.properties.height = arg.rect.getHeight();
-    }
-    var p = this.properties;
-    var s = this.shape;
-    s.graphics.clear();  // we need to redraw everything
-    s.x = p.x;
-    s.y = p.y;
-    this.updateArrow();
-    // world.setChildIndex(s, world.getNumChildren()-1);
-    // world.setChildIndex(s, 0);
-    s.graphics.beginFill(p.color);
-    s.graphics.beginStroke(p.stroke);
-    s.graphics.drawRect(0, 0, p.width, p.height);
-    s.graphics.endFill().endStroke();
-    if (! this.text) {
-        this.text = new createjs.Text(this.properties.text, "20px Arial", "#000000");
-    }
-    this.text.x = this.properties.x;
-    this.text.y = this.properties.y;
-    world.addChild(this.text);
-    stage.update();
+    draw(this, true, arg);
 };
 
 /**

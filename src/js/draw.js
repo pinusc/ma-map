@@ -1,4 +1,4 @@
-function draw(item, update) {
+function draw(item, update, arg) {
     if (item.shape) {
         item.shape.graphics.clear();
     } else {
@@ -34,8 +34,43 @@ function draw(item, update) {
         g.moveTo(p1x, p1y);
         g.lineTo(p2x, p2y);
         g.endStroke();
+    } else if (item instanceof Box) {
+        drawBox(item, arg);
+    } else if (item instanceof createjs.Text) {
+        item.x = arg.x;
+        item.y = arg.y;
+        if (! world.contains(item)) {
+            world.addChild(item);
+        }
+        world.setChildIndex(item, world.getNumChildren() - 1);
+        return;
     }
-    world.addChild(item.shape);
+    if (! world.contains(item.shape)) {
+        world.addChild(item.shape);
+    }
     if(update) 
         stage.update();
+}
+
+// TODO make local
+function drawBox(item, arg) {
+    item.updateProperties(arg);
+    var p = item.properties;
+    var s = item.shape;
+    s.graphics.clear();  // we need to redraw everything
+    s.x = p.x;
+    s.y = p.y;
+    item.updateArrow();
+    // world.setChildIndex(s, world.getNumChildren()-1);
+    // world.setChildIndex(s, 0);
+    s.graphics.beginFill(p.color);
+    s.graphics.beginStroke(p.stroke);
+    s.graphics.drawRect(0, 0, p.width, p.height);
+    s.graphics.endFill().endStroke();
+
+    if (! item.text) {
+        item.text = new createjs.Text(item.properties.text, "20px Arial", "#000000");
+    }
+
+    draw(item.text, false, {x: item.properties.x, y: item.properties.y});
 }
