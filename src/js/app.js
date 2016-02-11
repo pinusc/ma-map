@@ -28,7 +28,7 @@ function main() {
     world = new createjs.Container();
     stage.addChild(world);
 
-    circle = new Box(null, {rect: new Rectangle(new Point(stage.canvas.width / 2, stage.canvas.height / 2), 100, 50)});
+    circle = new Box(null, {rect: new Rectangle(new Point(stage.canvas.width / 2, stage.canvas.height / 2), 100, 50)}, "Lipsum");
 
     var offset = new createjs.Point();
 	function startDrag(evt) {
