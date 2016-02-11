@@ -4,19 +4,7 @@ function Point(x, y){
 }
 
 Point.prototype.draw = function(graphics) {
-    if (graphics) {
-        this.shape = new createjs.Shape();
-    } else {
-        this.shape = new createjs.Shape(graphics);
-    }
-    var g = this.shape.graphics;
-
-    g.beginFill("black");
-
-    g.drawCircle(this.x, this.y, 5);
-
-    world.addChild(this.shape);
-    stage.update();
+    draw(this, null, true);
 };
 
 /**    this
