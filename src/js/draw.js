@@ -1,4 +1,4 @@
-function draw(item, graphics, update) {
+function draw(item, update) {
     if (item.shape) {
         item.shape.graphics.clear();
     } else {
@@ -8,7 +8,6 @@ function draw(item, graphics, update) {
 
 
     if (item instanceof Point) {
-
         g.beginFill("black");
         g.drawCircle(item.x, item.y, 5);
     }

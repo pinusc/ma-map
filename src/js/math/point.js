@@ -4,7 +4,7 @@ function Point(x, y){
 }
 
 Point.prototype.draw = function(graphics) {
-    draw(this, null, true);
+    draw(this, true);
 };
 
 /**    this
