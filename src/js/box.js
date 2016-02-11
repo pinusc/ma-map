@@ -58,7 +58,7 @@ Box.prototype.initializeInput = function(){
 
     var dclick = function (evt) {
         // console.log(evt.target);
-        that.addChild("foo");
+        that.addChild(that.children.length);
     };
     // this.shape.addEventListener("click", handleClick);
     this.shape.on("mousedown", startDrag);
@@ -91,6 +91,13 @@ Box.prototype.redraw = function(arg){
     s.graphics.beginFill(p.color);
     s.graphics.beginStroke(p.stroke);
     s.graphics.drawRect(0, 0, p.width, p.height);
+    s.graphics.endFill().endStroke();
+    if (! this.text) {
+        this.text = new createjs.Text(this.properties.text, "20px Arial", "#000000");
+    }
+    this.text.x = this.properties.x;
+    this.text.y = this.properties.y;
+    world.addChild(this.text);
     stage.update();
 };
 
