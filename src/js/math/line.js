@@ -27,32 +27,7 @@ Line.prototype.getX = function (y){
 };
 
 Line.prototype.draw = function() {
-    this.shape = new createjs.Shape();
-    var g = this.shape.graphics;
-    if (this.b) {
-        p1x = 0;
-        p1y = this.getY(p1x);
-
-        p2x = window.innerWidth - 10;
-        p2y = this.getY(p2x);
-    } else {
-        p1x = this.c;
-        p1y = 0;
-
-        p2x = this.c;
-        p2y = window.innerHeight;  // TODO: adapt to worlda larger that window
-    }
-
-
-    console.log(window.innerHeight);
-    g.beginStroke("black");
-
-    g.moveTo(p1x, p1y);
-    g.lineTo(p2x, p2y);
-    g.endStroke();
-
-    world.addChild(this.shape);
-    stage.update();
+    draw(this, true);
 };
 
 /**
