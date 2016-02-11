@@ -31,7 +31,7 @@ function Arrow(parentBox, childBox) {
     this.segment = new Segment(p1, parent_center);
     draw(this.segment);
     draw(parentBox);
-    draw(parent_center);
+    // draw(parent_center);
 
     this.p1 = p1;
     this.p2 = parent_center;
