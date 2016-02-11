@@ -29,6 +29,20 @@ function Box(parentBox, obj, text){
     this.redraw();
 }
 
+Box.prototype.updateProperties = function (arg) {
+    if (! arg) return;
+    if (arg.properties) {
+        _.extend(this.properties, arg.properties);
+    }
+
+    if (arg.rect) {
+        this.properties.x = arg.rect.p1.x;
+        this.properties.y = arg.rect.p2.y;
+        this.properties.width = arg.rect.getWidth();
+        this.properties.height = arg.rect.getHeight();
+    }
+};
+
 Box.prototype.getRectangle = function(){
     return new Rectangle(new Point(this.properties.x, this.properties.y),
             this.properties.width,
