@@ -164,6 +164,10 @@ Rectangle.prototype.getCenter = function(){
     return new Point((this.p1.x + this.p4.x)/2, (this.p1.y + this.p4.y)/2);
 };
 
+Rectangle.prototype.overlap = function(r2) {
+   return (this.p1.x <= r2.p4.x && this.p4.x >= r2.p1.x && this.p1.y <= r2.p4.y && this.p4.y >= r2.p1.y);
+};
+
 
 
 /**
