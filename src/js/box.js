@@ -29,6 +29,12 @@ function Box(parentBox, obj, text){
     this.redraw();
 }
 
+Box.prototype.getRectangle = function(){
+    return new Rectangle(new Point(this.properties.x, this.properties.y),
+            this.properties.width,
+            this.properties.height);
+};
+
 Box.prototype.initializeInput = function(){
     var that = this;
     var pressmove = function (evt) {
