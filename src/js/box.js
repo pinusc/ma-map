@@ -173,9 +173,3 @@ Box.prototype.updateArrow = function() {
     this.arrow = new Arrow(this.parentBox, this); 
 
 };
-
-Box.prototype.getCenter = function() {
-    var x = this.properties.x + this.properties.width / 2;
-    var y = this.properties.y + this.properties.height/ 2;
-    return new Point(x, y);
-};
