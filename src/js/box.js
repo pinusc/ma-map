@@ -153,10 +153,25 @@ Box.prototype.balanceChildren = function() {
             this.properties.height);
     var t_center = t_rect.getCenter();
 
-    var distance = 300;
+    var distance = 100;
     for (var i = 0; i < this.children.length; i++){
+        distance = 100;
         var p2 = t_center.findPointOnCircle(distance, angle + (i + 1) * pitch);
         var c_rect = new Rectangle(p2, this.properties.width, this.properties.height, true);
+
+        if (c_rect.overlap(this.getRectangle())){
+            distance += this.properties.height;
+            p2 = t_center.findPointOnCircle(distance, angle + (i + 1) * pitch);
+            c_rect = new Rectangle(p2, this.properties.width, this.properties.height, true);
+        }
+        for (var u = 0; u < i; u++){
+            if (c_rect.overlap(this.children[u].getRectangle())){
+                distance += 10;
+                u = -1;
+                p2 = t_center.findPointOnCircle(distance, angle + (i + 1) * pitch);
+                c_rect = new Rectangle(p2, this.properties.width, this.properties.height, true);
+            }
+        }
         this.children[i].update({rect: c_rect});
     }
 };
