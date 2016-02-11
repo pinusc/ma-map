@@ -3,10 +3,6 @@ function Point(x, y){
     this.y = y || 0;
 }
 
-Point.prototype.draw = function(graphics) {
-    draw(this, true);
-};
-
 /**    this
  * _______.
  *     \  \ radius = 3

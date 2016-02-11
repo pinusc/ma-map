@@ -26,10 +26,6 @@ Line.prototype.getX = function (y){
     return ((-this.b) * y + this.c) / this.a;
 };
 
-Line.prototype.draw = function() {
-    draw(this, true);
-};
-
 /**
  * calculate equation of line passing between Points p1 and p2
  * using formula (y - p1.y)/(p2.y - p1.x) = (x - p1.x)/(p2.x - p1.x)

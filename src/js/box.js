@@ -25,8 +25,7 @@ function Box(parentBox, obj, text){
     // new createjs.Shape(this.shape.graphics).graphics.beginFill("red").drawCircle(10, 10, 20);
     this.initializeInput();
     world.addChild(this.shape);
-    stage.update();
-    this.redraw();
+    draw(this, true);
 }
 
 Box.prototype.updateProperties = function (arg) {
@@ -85,7 +84,7 @@ Box.prototype.initializeInput = function(){
  *
  */
 Box.prototype.redraw = function(arg){
-    draw(this, true, arg);
+    throw new Exception("Unsupported");
 };
 
 /**
@@ -93,10 +92,11 @@ Box.prototype.redraw = function(arg){
  *
  */
 Box.prototype.update = function(arg) {
-    this.redraw(arg);
+    draw(this, true, arg);
     for (var i = 0, len = this.children.length; i < len; i++) {
-        this.children[i].redraw();
+        draw(this.children[i]);
     }
+    stage.update();
 };
 
 /** Draws like this:
@@ -212,13 +212,13 @@ Box.prototype.updateArrow = function() {
             break;
     }
 
-    p1.draw(this.arrow.graphics);
+    draw(p1);
     var p2 = this.parentBox.getCenter();
 
     this.arrow.segment = new Segment(p1, p2);
-    this.arrow.segment.draw(this.arrow.graphics);
-    this.parentBox.redraw();
-    p2.draw(this.arrow.graphics);
+    draw(this.arrow.segment);
+    draw(this.parentBox);
+    draw(p2);
 
     this.arrow.p1 = p1;
     this.arrow.p2 = p2;
